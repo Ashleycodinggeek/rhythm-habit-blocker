@@ -1,0 +1,642 @@
+[
+  {
+    "id": 1001,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betika.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betika.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1003,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=ke.sportpesa.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||ke.sportpesa.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1005,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=sportpesa.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||sportpesa.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1007,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=odibets.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||odibets.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1009,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=sportybet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||sportybet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1011,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=mozzartbet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||mozzartbet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1013,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=1xbet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||1xbet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1015,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=22bet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||22bet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1017,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betwinner.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betwinner.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1019,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=dafabet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||dafabet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1021,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=melbet.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||melbet.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1023,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=bongobongo.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||bongobongo.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1025,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=chezacash.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||chezacash.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1027,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=kwikbet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||kwikbet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1029,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=bangbet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||bangbet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1031,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betkwiff.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betkwiff.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1033,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=kilibet.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||kilibet.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1035,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=wezabet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||wezabet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1037,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=megapari.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||megapari.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1039,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=paripesa.bet"
+      }
+    },
+    "condition": {
+      "urlFilter": "||paripesa.bet",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1041,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=888starz.bet"
+      }
+    },
+    "condition": {
+      "urlFilter": "||888starz.bet",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1043,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=linebet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||linebet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1045,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=afropari.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||afropari.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1047,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=helabet.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||helabet.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1049,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=1xbet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||1xbet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1051,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=bet365.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||bet365.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1053,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betway.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betway.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1055,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betway.co.ke"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betway.co.ke",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1057,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=draftkings.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||draftkings.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1059,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=fanduel.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||fanduel.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1061,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=williamhill.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||williamhill.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1063,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=ladbrokes.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||ladbrokes.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1065,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=paddypower.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||paddypower.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1067,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=coral.co.uk"
+      }
+    },
+    "condition": {
+      "urlFilter": "||coral.co.uk",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1069,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=skybet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||skybet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1071,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=888sport.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||888sport.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1073,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=unibet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||unibet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1075,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=bwin.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||bwin.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1077,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=betfair.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||betfair.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 1079,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/blocked.html?type=gambling&site=pointsbet.com"
+      }
+    },
+    "condition": {
+      "urlFilter": "||pointsbet.com",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  }
+]

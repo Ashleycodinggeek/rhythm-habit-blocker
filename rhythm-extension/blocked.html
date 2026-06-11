@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rhythm — You're Protected</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --deep: #0d0f14;
+      --ink: #1a1d24;
+      --slate: #2c3040;
+      --mist: #8a909e;
+      --silver: #c4c9d4;
+      --snow: #f0f2f5;
+      --gold: #c9a96e;
+      --gold-soft: rgba(201,169,110,0.10);
+      --gold-line: rgba(201,169,110,0.25);
+      --sage: #7fa888;
+      --sage-soft: rgba(127,168,136,0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--deep);
+      color: var(--snow);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 50% at 50% 60%, rgba(201,169,110,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(127,168,136,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Slow breathing rings in background */
+    .rings {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0.06;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: breathe 6s ease-in-out infinite;
+    }
+
+    .ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+    .ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 1s; }
+    .ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 2s; }
+    .ring:nth-child(4) { width: 900px; height: 900px; animation-delay: 3s; }
+    .ring:nth-child(5) { width: 1100px; height: 1100px; animation-delay: 4s; }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 0.2; transform: translate(-50%,-50%) scale(1.03); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--ink);
+      border: 1px solid var(--slate);
+      border-radius: 6px;
+      max-width: 520px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: var(--mist);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .logo span { color: var(--gold); }
+
+    /* Icon */
+    .icon-wrap {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-line);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1.75rem;
+      font-size: 1.8rem;
+      animation: icon-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes icon-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.15); }
+      50% { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--snow);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 em { font-style: italic; color: var(--gold); }
+
+    .blocked-site {
+      font-size: 0.75rem;
+      color: var(--mist);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+      font-family: monospace;
+    }
+
+    /* Separator */
+    .sep {
+      width: 2.5rem;
+      height: 1px;
+      background: var(--gold-line);
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Affirmation */
+    .affirmation {
+      background: var(--sage-soft);
+      border: 1px solid rgba(127,168,136,0.18);
+      border-radius: 4px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .affirmation p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--silver);
+      line-height: 1.65;
+    }
+
+    .affirmation cite {
+      display: block;
+      font-style: normal;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-top: 0.65rem;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-back {
+      background: var(--gold);
+      color: var(--deep);
+      border: none;
+      padding: 0.75rem 1.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .btn-back:hover {
+      background: #d4b580;
+      transform: translateY(-1px);
+    }
+
+    .btn-close {
+      background: transparent;
+      color: var(--mist);
+      border: 1px solid var(--slate);
+      padding: 0.75rem 1.75rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .btn-close:hover {
+      border-color: var(--mist);
+      color: var(--snow);
+    }
+
+    /* Footer note */
+    .footer-note {
+      font-size: 0.7rem;
+      color: var(--slate);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-note a {
+      color: var(--mist);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-note a:hover { color: var(--snow); }
+
+    /* Breathing reminder */
+    .breathe-prompt {
+      margin-top: 2.5rem;
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fade-breathe 4s ease-in-out infinite;
+    }
+
+    @keyframes fade-breathe {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+
+    @media (max-width: 540px) {
+      .card { padding: 2rem 1.5rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rings">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+</div>
+
+<div class="card">
+  <div class="logo">Rhythm<span>.</span></div>
+
+  <div class="icon-wrap" id="blockIcon">🌿</div>
+
+  <h1>You were <em>protected.</em></h1>
+
+  <p class="blocked-site" id="blockedSite">Loading…</p>
+
+  <div class="sep"></div>
+
+  <div class="affirmation">
+    <p id="affirmationText">"The version of you that set this block was thinking clearly. Trust that person."</p>
+    <cite>— Rhythm</cite>
+  </div>
+
+  <div class="actions">
+    <button class="btn-back" onclick="goBack()">← Go back</button>
+    <button class="btn-close" onclick="window.close()">Close tab</button>
+  </div>
+
+  <p class="footer-note">
+    This site is on your block list. 
+    <a href="#" onclick="openSettings()">Edit settings</a>
+  </p>
+
+  <div class="breathe-prompt">Breathe in · Breathe out</div>
+</div>
+
+<script>
+  // Parse URL params
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type') || 'porn';
+  const site = params.get('site') || 'blocked site';
+
+  // Set blocked site display
+  document.getElementById('blockedSite').textContent = site;
+
+  // Set icon by type
+  const icons = { porn: '🌿', gambling: '⚖️', custom: '🔒' };
+  document.getElementById('blockIcon').textContent = icons[type] || '🔒';
+
+  // Rotating affirmations
+  const affirmations = [
+    "The version of you that set this block was thinking clearly. Trust that person.",
+    "Every moment you don't visit this site, you are choosing the life you actually want.",
+    "This pause is not a failure. It is evidence that something in you is fighting for better.",
+    "Real freedom isn't about having no restrictions — it's about choosing your own.",
+    "The urge will pass. It always does. Give it five minutes.",
+    "You deserve the life that exists on the other side of this habit.",
+    "Your future self will thank the person who made this choice today.",
+    "Discipline is just choosing your future self over your present impulse.",
+    "One redirect is not recovery. But it is one step. That is enough for right now.",
+    "You are not broken. You are someone working on themselves. That takes courage."
+  ];
+
+  const today = new Date();
+  const idx = (today.getDate() + today.getMonth()) % affirmations.length;
+  document.getElementById('affirmationText').textContent = `"${affirmations[idx]}"`;
+
+  function goBack() {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = 'chrome://newtab';
+    }
+  }
+
+  function openSettings() {
+    chrome.runtime.sendMessage({ type: 'OPEN_POPUP' });
+  }
+</script>
+</body>
+</html>
