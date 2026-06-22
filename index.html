@@ -8,1304 +8,818 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
-    /* ===== TOKENS ===== */
+    /* ─── TOKENS: White · Forest Green · Burgundy ── */
     :root {
-      --deep-night: #0d0f14;
-      --ink: #1a1d24;
-      --slate: #2c3040;
-      --mist: #8a909e;
-      --silver: #c4c9d4;
-      --snow: #f0f2f5;
-      --gold: #c9a96e;
-      --gold-soft: rgba(201, 169, 110, 0.15);
-      --gold-line: rgba(201, 169, 110, 0.3);
-      --sage: #7fa888;
-      --sage-soft: rgba(127, 168, 136, 0.12);
-      --radius: 2px;
-      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --white:      #ffffff;
+      --off-white:  #f7f8f5;
+      --paper:      #eef0eb;
+      --mist:       #d4d8cf;
+      --mid:        #8c9488;
+      --dim:        #5a6058;
+
+      --green:      #2d5a3d;
+      --green-md:   #3d7a54;
+      --green-lt:   #6aab82;
+      --green-s:    rgba(45,90,61,.08);
+      --green-l:    rgba(45,90,61,.22);
+
+      --burg:       #7c2035;
+      --burg-md:    #9e2a43;
+      --burg-s:     rgba(124,32,53,.08);
+      --burg-l:     rgba(124,32,53,.22);
+
+      --T:          0.38s cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--off-white);color:var(--green);font-family:'DM Sans',sans-serif;
+         font-weight:300;line-height:1.6;overflow-x:hidden}
+
+    /* ─── TYPOGRAPHY ─────────────────────────────── */
+    .serif{font-family:'Cormorant Garamond',serif;font-weight:300}
+    .xl  {font-size:clamp(3rem,8vw,7rem);line-height:1.0;letter-spacing:-.02em}
+    .lg  {font-size:clamp(1.8rem,4vw,3.6rem);line-height:1.1;letter-spacing:-.01em}
+    .md  {font-size:clamp(1.3rem,2.5vw,2rem);line-height:1.2}
+    .label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--burg);font-weight:500}
+
+    /* ─── NAV ─────────────────────────────────────── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      padding:1.1rem 5vw;
+      display:flex;align-items:center;justify-content:space-between;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--mist);
+    }
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;
+              font-weight:300;letter-spacing:.12em;color:var(--green);text-decoration:none}
+    .nav-logo span{color:var(--burg)}
+    .nav-links{display:flex;gap:2.2rem;list-style:none}
+    .nav-links a{color:var(--dim);text-decoration:none;font-size:.83rem;
+                 letter-spacing:.04em;transition:color var(--T)}
+    .nav-links a:hover{color:var(--green)}
+    #navInstallBtn{
+      background:transparent;border:1px solid var(--burg-l);color:var(--burg);
+      padding:.45rem 1.1rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+      cursor:pointer;transition:all var(--T);font-family:'DM Sans',sans-serif;border-radius:2px;
+    }
+    #navInstallBtn:hover{background:var(--burg-s)}
+    #navDashBtn{
+      display:none;
+      background:var(--green);color:var(--white);border:none;
+      padding:.45rem 1.1rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+      cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:2px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      background: var(--deep-night);
-      color: var(--snow);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.6;
-      overflow-x: hidden;
+    /* ─── HERO ────────────────────────────────────── */
+    .hero{
+      min-height:100vh;display:grid;place-items:center;
+      position:relative;overflow:hidden;padding:8rem 5vw 5rem;
+      background:var(--white);
     }
-
-    /* ===== TYPOGRAPHY ===== */
-    .display {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-    }
-    .display-xl { font-size: clamp(3rem, 8vw, 7rem); line-height: 1.0; }
-    .display-lg { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; }
-    .display-md { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.2; }
-
-    .label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    /* ===== NAV ===== */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.25rem 4vw;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(to bottom, rgba(13,15,20,0.95), transparent);
-      backdrop-filter: blur(8px);
-    }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--snow);
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: var(--gold); }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--silver);
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      transition: color var(--transition);
-    }
-
-    .nav-links a:hover { color: var(--snow); }
-
-    .nav-cta {
-      background: transparent;
-      border: 1px solid var(--gold-line);
-      color: var(--gold);
-      padding: 0.5rem 1.2rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: 'DM Sans', sans-serif;
-      text-decoration: none;
-    }
-    .nav-cta:hover {
-      background: var(--gold-soft);
-      border-color: var(--gold);
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      padding: 8rem 4vw 4rem;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
+    .hero-bg{
+      position:absolute;inset:0;
       background:
-        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(201,169,110,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 70% at 20% 80%, rgba(127,168,136,0.05) 0%, transparent 60%);
+        radial-gradient(ellipse 55% 55% at 70% 55%, rgba(45,90,61,.06) 0%,transparent 70%),
+        radial-gradient(ellipse 40% 50% at 15% 75%, rgba(124,32,53,.04) 0%,transparent 60%);
     }
-
-    /* Signature element: slow-pulsing concentric rings */
-    .rings {
-      position: absolute;
-      top: 50%; right: 8%;
-      transform: translateY(-50%);
-      width: 480px; height: 480px;
-      pointer-events: none;
-      opacity: 0.18;
+    .rings{
+      position:absolute;top:50%;right:5%;transform:translateY(-50%);
+      width:480px;height:480px;pointer-events:none;opacity:.12;
     }
-
-    .ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid var(--gold);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: pulse-ring 4s ease-in-out infinite;
+    .ring{position:absolute;border-radius:50%;border:1px solid var(--green);
+          top:50%;left:50%;transform:translate(-50%,-50%);animation:pring 5s ease-in-out infinite}
+    .ring:nth-child(1){width:110px;height:110px;animation-delay:0s}
+    .ring:nth-child(2){width:230px;height:230px;animation-delay:.8s}
+    .ring:nth-child(3){width:360px;height:360px;animation-delay:1.6s}
+    .ring:nth-child(4){width:480px;height:480px;animation-delay:2.4s}
+    @keyframes pring{
+      0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}
+      50%{opacity:.15;transform:translate(-50%,-50%) scale(1.04)}
     }
+    .hero-content{position:relative;z-index:1;max-width:680px}
+    .hero-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+    .hero-eyebrow::before{content:'';display:block;width:2.2rem;height:1px;background:var(--burg)}
+    .hero h1{margin-bottom:1.4rem;color:var(--green)}
+    .hero h1 em{font-style:italic;color:var(--burg)}
+    .hero-sub{font-size:1.02rem;color:var(--dim);max-width:460px;margin-bottom:2.5rem;line-height:1.75}
+    .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
 
-    .ring:nth-child(1) { width: 120px; height: 120px; animation-delay: 0s; }
-    .ring:nth-child(2) { width: 240px; height: 240px; animation-delay: 0.6s; }
-    .ring:nth-child(3) { width: 360px; height: 360px; animation-delay: 1.2s; }
-    .ring:nth-child(4) { width: 480px; height: 480px; animation-delay: 1.8s; }
-
-    @keyframes pulse-ring {
-      0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
-      50% { opacity: 0.15; transform: translate(-50%,-50%) scale(1.04); }
+    /* ─── BUTTONS ─────────────────────────────────── */
+    .btn-primary{
+      background:var(--green);color:var(--white);border:none;
+      padding:.82rem 1.9rem;font-size:.82rem;font-weight:500;letter-spacing:.08em;
+      text-transform:uppercase;cursor:pointer;transition:all var(--T);
+      font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;border-radius:2px
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
+    .btn-primary:hover{background:var(--green-md);transform:translateY(-1px)}
+    .btn-outline{
+      background:transparent;color:var(--dim);border:1px solid var(--mist);
+      padding:.82rem 1.9rem;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
+      cursor:pointer;transition:all var(--T);font-family:'DM Sans',sans-serif;
+      text-decoration:none;display:inline-block;border-radius:2px
     }
+    .btn-outline:hover{border-color:var(--dim);color:var(--green)}
 
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    /* ─── INSTALL BANNER ─────────────────────────── */
+    #installBanner{
+      background:linear-gradient(135deg,var(--white) 0%,rgba(45,90,61,.04) 100%);
+      border:1px solid var(--green-l);border-radius:6px;
+      padding:2rem 2.5rem;margin:0 5vw 0;
+      display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+      position:relative;z-index:1;
     }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 2.5rem;
-      height: 1px;
-      background: var(--gold);
+    #installBanner.hidden{display:none}
+    .banner-left .label{margin-bottom:.6rem}
+    .banner-left h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;
+                    color:var(--green);margin-bottom:.4rem}
+    .banner-left p{font-size:.85rem;color:var(--dim);max-width:420px}
+    .install-steps-row{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-top:1rem}
+    .i-step{background:var(--off-white);border:1px solid var(--mist);padding:.35rem .8rem;
+            font-size:.72rem;color:var(--dim);display:flex;align-items:center;gap:.4rem;border-radius:2px}
+    .i-step .n{width:16px;height:16px;border-radius:50%;background:var(--green-s);border:1px solid var(--green-l);
+               font-size:.6rem;color:var(--green);display:grid;place-items:center;flex-shrink:0}
+    .i-arrow{color:var(--mist);font-size:.75rem}
+    .banner-download{
+      background:var(--burg);color:var(--white);border:none;
+      padding:.85rem 1.8rem;font-size:.8rem;font-weight:500;letter-spacing:.08em;
+      text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;
+      border-radius:2px;white-space:nowrap;transition:all var(--T);text-decoration:none;display:inline-block
     }
+    .banner-download:hover{background:var(--burg-md);transform:translateY(-1px)}
 
-    .hero h1 { margin-bottom: 1.5rem; }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold);
+    /* ─── STATS ───────────────────────────────────── */
+    .stats-bar{
+      padding:2rem 5vw;margin-top:3rem;
+      background:var(--green);
+      display:flex;gap:3.5rem;overflow-x:auto;position:relative;z-index:1;
     }
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;
+              font-weight:300;color:var(--white);line-height:1;margin-bottom:.2rem}
+    .stat-num span{color:var(--green-lt)}
+    .stat-label{font-size:.72rem;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase}
 
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--silver);
-      max-width: 480px;
-      margin-bottom: 3rem;
-      line-height: 1.7;
+    /* ─── DASHBOARD SECTION ───────────────────────── */
+    #dashboardSection{display:none;padding:5rem 5vw;background:var(--paper)}
+    #dashboardSection.active{display:block}
+
+    .dash-grid{
+      display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:2rem;
     }
+    @media(max-width:900px){.dash-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.dash-grid{grid-template-columns:1fr}}
 
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+    .dash-card{
+      background:var(--white);border:1px solid var(--mist);
+      border-radius:6px;padding:1.75rem;transition:border-color var(--T);
+      box-shadow:0 1px 4px rgba(45,90,61,.05);
     }
+    .dash-card:hover{border-color:var(--green-l);box-shadow:0 4px 16px rgba(45,90,61,.08)}
+    .dash-card-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+                     color:var(--mid);margin-bottom:.6rem}
+    .dash-card-value{font-family:'Cormorant Garamond',serif;font-size:2.8rem;
+                     font-weight:300;color:var(--green);line-height:1;margin-bottom:.25rem}
+    .dash-card-value span{color:var(--burg);font-size:1.4rem}
+    .dash-card-sub{font-size:.75rem;color:var(--mid)}
 
-    .btn-primary {
-      background: var(--gold);
-      color: var(--deep-night);
-      border: none;
-      padding: 0.85rem 2rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: 'DM Sans', sans-serif;
-      text-decoration: none;
-      display: inline-block;
+    .streak-bar{height:3px;background:var(--mist);border-radius:2px;margin-top:.85rem;overflow:hidden}
+    .streak-fill{height:100%;background:linear-gradient(90deg,var(--green-lt),var(--green));
+                 border-radius:2px;transition:width 1s ease}
+
+    /* ─── BLOCKER CONTROLS ────────────────────────── */
+    .blocker-controls{
+      background:var(--white);border:1px solid var(--mist);border-radius:6px;overflow:hidden;
+      margin-bottom:1.5rem;box-shadow:0 1px 4px rgba(45,90,61,.05);
     }
-
-    .btn-primary:hover {
-      background: #d4b580;
-      transform: translateY(-1px);
+    .bc-header{
+      padding:1rem 1.5rem;border-bottom:1px solid var(--mist);
+      display:flex;align-items:center;justify-content:space-between;
+      background:var(--off-white);
     }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--silver);
-      border: 1px solid var(--slate);
-      padding: 0.85rem 2rem;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: 'DM Sans', sans-serif;
-      text-decoration: none;
-      display: inline-block;
+    .bc-header-left{display:flex;align-items:center;gap:.8rem}
+    .bc-dots{display:flex;gap:5px}
+    .bc-dots span{width:9px;height:9px;border-radius:50%;background:var(--mist)}
+    .bc-title{font-size:.75rem;color:var(--mid);letter-spacing:.07em}
+    .active-badge{
+      font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+      background:var(--green-s);border:1px solid var(--green-l);color:var(--green);
+      padding:.15rem .55rem;border-radius:100px;
     }
+    .active-badge.off{background:var(--burg-s);border-color:var(--burg-l);color:var(--burg)}
 
-    .btn-outline:hover {
-      border-color: var(--mist);
-      color: var(--snow);
+    .bc-body{padding:1.25rem 1.5rem}
+
+    .cat-row{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.75rem 0;border-bottom:1px solid rgba(45,90,61,.07);
     }
-
-    /* ===== STATS BAR ===== */
-    .stats-bar {
-      padding: 2rem 4vw;
-      border-top: 1px solid var(--slate);
-      border-bottom: 1px solid var(--slate);
-      display: flex;
-      gap: 4rem;
-      overflow-x: auto;
-    }
-
-    .stat {
-      flex-shrink: 0;
-    }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--snow);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-num span { color: var(--gold); }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--mist);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ===== SECTIONS ===== */
-    section { padding: 6rem 4vw; }
-
-    .section-header {
-      margin-bottom: 4rem;
-    }
-
-    .section-header .label { margin-bottom: 1rem; }
-
-    /* ===== HOW IT WORKS ===== */
-    .how-it-works {
-      background: var(--ink);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2px;
-    }
-
-    .step {
-      background: var(--deep-night);
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: background var(--transition);
-    }
-
-    .step::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .step:hover::before { opacity: 1; }
-    .step:hover { background: rgba(201,169,110,0.03); }
-
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      font-weight: 300;
-      color: var(--slate);
-      line-height: 1;
-      margin-bottom: 1.5rem;
-    }
-
-    .step h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--snow);
-      margin-bottom: 0.75rem;
-    }
-
-    .step p {
-      color: var(--mist);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
-
-    /* ===== BLOCKER DEMO ===== */
-    .blocker-section {
-      background: var(--deep-night);
-    }
-
-    .blocker-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    @media (max-width: 800px) {
-      .blocker-grid { grid-template-columns: 1fr; }
-      .rings { display: none; }
-    }
-
-    .blocker-panel {
-      background: var(--ink);
-      border: 1px solid var(--slate);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid var(--slate);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .panel-dots { display: flex; gap: 6px; }
-    .panel-dots span {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--slate);
-    }
-
-    .panel-title {
-      font-size: 0.75rem;
-      color: var(--mist);
-      letter-spacing: 0.08em;
-    }
-
-    .panel-body { padding: 1.5rem; }
-
-    .category-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .category-row:last-child { border-bottom: none; }
-
-    .category-info { display: flex; align-items: center; gap: 0.75rem; }
-
-    .category-icon {
-      width: 32px; height: 32px;
-      border-radius: 6px;
-      display: grid;
-      place-items: center;
-      font-size: 0.9rem;
-    }
-
-    .cat-red { background: rgba(220, 80, 80, 0.15); }
-    .cat-orange { background: rgba(220, 140, 60, 0.15); }
-    .cat-purple { background: rgba(140, 80, 200, 0.15); }
-    .cat-blue { background: rgba(60, 120, 220, 0.15); }
-
-    .category-name {
-      font-size: 0.875rem;
-      color: var(--snow);
-    }
-
-    .category-count {
-      font-size: 0.7rem;
-      color: var(--mist);
-      margin-top: 1px;
-    }
+    .cat-row:last-of-type{border-bottom:none}
+    .cat-info{display:flex;align-items:center;gap:.75rem}
+    .cat-icon{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;font-size:.85rem}
+    .ci-red   {background:rgba(124,32,53,.1)}
+    .ci-orange{background:rgba(180,100,20,.1)}
+    .ci-purple{background:rgba(80,40,140,.1)}
+    .cat-name{font-size:.875rem;color:var(--green)}
+    .cat-count{font-size:.7rem;color:var(--mid);margin-top:1px}
 
     /* Toggle */
-    .toggle {
-      position: relative;
-      width: 40px; height: 22px;
-      cursor: pointer;
-    }
-
-    .toggle input { opacity: 0; width: 0; height: 0; }
-
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      background: var(--slate);
-      border-radius: 11px;
-      transition: background var(--transition);
-    }
-
-    .toggle-track::after {
-      content: '';
-      position: absolute;
-      top: 3px; left: 3px;
-      width: 16px; height: 16px;
-      background: var(--snow);
-      border-radius: 50%;
-      transition: transform var(--transition);
-    }
-
-    .toggle input:checked + .toggle-track {
-      background: var(--sage);
-    }
-
-    .toggle input:checked + .toggle-track::after {
-      transform: translateX(18px);
-    }
-
-    /* Custom sites input */
-    .custom-input-area { margin-top: 1.5rem; }
-
-    .custom-input-area label {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--mist);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .domain-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .domain-tag {
-      background: var(--slate);
-      color: var(--silver);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 100px;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .domain-tag button {
-      background: none;
-      border: none;
-      color: var(--mist);
-      cursor: pointer;
-      font-size: 0.8rem;
-      padding: 0;
-      line-height: 1;
-      transition: color var(--transition);
-    }
-
-    .domain-tag button:hover { color: var(--snow); }
-
-    .add-domain-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .add-domain-input {
-      flex: 1;
-      background: var(--deep-night);
-      border: 1px solid var(--slate);
-      color: var(--snow);
-      padding: 0.55rem 0.85rem;
-      font-size: 0.85rem;
-      font-family: 'DM Sans', sans-serif;
-      outline: none;
-      transition: border-color var(--transition);
-      border-radius: 2px;
-    }
-
-    .add-domain-input:focus { border-color: var(--gold-line); }
-    .add-domain-input::placeholder { color: var(--slate); }
-
-    .add-domain-btn {
-      background: var(--gold-soft);
-      border: 1px solid var(--gold-line);
-      color: var(--gold);
-      padding: 0.55rem 1rem;
-      font-size: 0.8rem;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all var(--transition);
-    }
-
-    .add-domain-btn:hover {
-      background: rgba(201,169,110,0.25);
-    }
-
-    /* Blocker text content */
-    .blocker-text .label { margin-bottom: 1.2rem; }
-
-    .blocker-text h2 {
-      margin-bottom: 1.5rem;
-    }
-
-    .blocker-text p {
-      color: var(--mist);
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .feature-list li {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-
-    .feature-list .check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--sage-soft);
-      border: 1px solid var(--sage);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      font-size: 0.65rem;
-      color: var(--sage);
-    }
-
-    .feature-list span {
-      font-size: 0.9rem;
-      color: var(--silver);
-      line-height: 1.6;
-    }
-
-    /* ===== TESTIMONIALS ===== */
-    .testimonials {
-      background: var(--ink);
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .testimonial-card {
-      background: var(--deep-night);
-      border: 1px solid var(--slate);
-      padding: 2.5rem;
-      position: relative;
-      transition: border-color var(--transition);
-    }
-
-    .testimonial-card:hover { border-color: var(--gold-line); }
-
-    .quote-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 5rem;
-      color: var(--gold);
-      opacity: 0.2;
-      line-height: 0.7;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--silver);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .author-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--slate), var(--mist));
-      display: grid;
-      place-items: center;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--snow);
-      flex-shrink: 0;
-    }
-
-    .author-name {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--snow);
-    }
-
-    .author-meta {
-      font-size: 0.75rem;
-      color: var(--mist);
-      margin-top: 2px;
-    }
-
-    .recovery-badge {
-      display: inline-block;
-      background: var(--sage-soft);
-      border: 1px solid rgba(127,168,136,0.3);
-      color: var(--sage);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      margin-top: 0.5rem;
-    }
-
-    /* ===== REDIRECT PAGE PREVIEW ===== */
-    .redirect-section { background: var(--deep-night); }
-
-    .redirect-preview {
-      max-width: 600px;
-      margin: 0 auto;
-      background: var(--ink);
-      border: 1px solid var(--slate);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .browser-chrome {
-      background: rgba(255,255,255,0.03);
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid var(--slate);
-    }
-
-    .browser-dots { display: flex; gap: 5px; }
-    .browser-dots span { width: 9px; height: 9px; border-radius: 50%; }
-    .bd-red { background: #ff5f57; }
-    .bd-yellow { background: #febc2e; }
-    .bd-green { background: #28c840; }
-
-    .browser-url {
-      flex: 1;
-      background: var(--deep-night);
-      border-radius: 4px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.75rem;
-      color: var(--mist);
-      font-family: monospace;
-    }
-
-    .redirect-content {
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .redirect-icon {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: var(--gold-soft);
-      border: 1px solid var(--gold-line);
-      display: grid;
-      place-items: center;
-      margin: 0 auto 1.5rem;
-      font-size: 1.5rem;
-    }
-
-    .redirect-content h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: var(--snow);
-      margin-bottom: 0.75rem;
-    }
-
-    .redirect-content p {
-      color: var(--mist);
-      font-size: 0.9rem;
-      max-width: 360px;
-      margin: 0 auto 1.5rem;
-      line-height: 1.7;
-    }
-
-    .redirect-affirmation {
-      background: var(--sage-soft);
-      border: 1px solid rgba(127,168,136,0.2);
-      border-radius: 4px;
-      padding: 1rem 1.5rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: var(--silver);
-      margin-bottom: 1.5rem;
-    }
-
-    .redirect-actions {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-    }
-
-    .redirect-btn-back {
-      background: var(--gold);
-      color: var(--deep-night);
-      border: none;
-      padding: 0.65rem 1.4rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    .redirect-btn-close {
-      background: transparent;
-      color: var(--mist);
-      border: 1px solid var(--slate);
-      padding: 0.65rem 1.4rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    /* ===== INSTALL SECTION ===== */
-    .install-section {
-      background: linear-gradient(135deg, var(--ink) 0%, var(--deep-night) 100%);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .install-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 50% 50% at 50% 100%, rgba(201,169,110,0.08) 0%, transparent 70%);
-    }
-
-    .install-section .section-header {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 2rem;
-    }
-
-    .install-section p {
-      color: var(--mist);
-      max-width: 440px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
-    }
-
-    .install-steps {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .install-step {
-      background: var(--deep-night);
-      border: 1px solid var(--slate);
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
-      color: var(--silver);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .install-step .step-n {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: var(--gold-soft);
-      border: 1px solid var(--gold-line);
-      font-size: 0.65rem;
-      color: var(--gold);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-
-    .install-arrow {
-      color: var(--slate);
-      font-size: 0.8rem;
-      align-self: center;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      padding: 3rem 4vw;
-      border-top: 1px solid var(--slate);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--mist);
-    }
-
-    .footer-logo span { color: var(--gold); }
-
-    .footer-tagline {
-      font-size: 0.75rem;
-      color: var(--slate);
-      letter-spacing: 0.1em;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 0.8rem;
-      color: var(--mist);
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-
-    .footer-links a:hover { color: var(--snow); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .stats-bar { gap: 2.5rem; }
-      .blocker-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; align-items: flex-start; }
-      .footer-links { flex-wrap: wrap; gap: 1rem; }
-    }
-
-    /* ===== SCROLL REVEAL ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .toggle{position:relative;width:38px;height:21px;cursor:pointer;flex-shrink:0}
+    .toggle input{opacity:0;width:0;height:0;position:absolute}
+    .ttrack{position:absolute;inset:0;background:var(--mist);border-radius:11px;transition:background .3s}
+    .ttrack::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;
+                   background:var(--white);border-radius:50%;transition:transform .3s;
+                   box-shadow:0 1px 3px rgba(0,0,0,.15)}
+    .toggle input:checked+.ttrack{background:var(--green)}
+    .toggle input:checked+.ttrack::after{transform:translateX(17px)}
+
+    /* Custom domains */
+    .custom-area{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(45,90,61,.08)}
+    .custom-area .label{margin-bottom:.65rem;display:block}
+    .dtags{display:flex;flex-wrap:wrap;gap:5px;min-height:24px;margin-bottom:.65rem}
+    .dtag{background:var(--green-s);border:1px solid var(--green-l);color:var(--green);font-size:.72rem;
+          padding:3px 9px;border-radius:100px;display:flex;align-items:center;gap:4px}
+    .dtag button{background:none;border:none;color:var(--mid);cursor:pointer;
+                 font-size:.8rem;padding:0;line-height:1;transition:color .2s}
+    .dtag button:hover{color:var(--burg)}
+    .add-row{display:flex;gap:6px}
+    .dinput{flex:1;background:var(--off-white);border:1px solid var(--mist);color:var(--green);
+            padding:.55rem .85rem;font-size:.82rem;font-family:'DM Sans',sans-serif;
+            outline:none;border-radius:2px;transition:border-color .2s}
+    .dinput:focus{border-color:var(--green-l)}
+    .dinput::placeholder{color:var(--mist)}
+    .dadd{background:var(--green-s);border:1px solid var(--green-l);color:var(--green);
+          padding:.55rem 1rem;font-size:.78rem;font-family:'DM Sans',sans-serif;
+          cursor:pointer;border-radius:2px;transition:all .2s;font-weight:500}
+    .dadd:hover{background:var(--green);color:var(--white)}
+    .empty-custom{font-size:.75rem;color:var(--mid);font-style:italic}
+
+    /* ─── SECTIONS ────────────────────────────────── */
+    section.sec{padding:5.5rem 5vw}
+    .sec-head{margin-bottom:3.5rem}
+    .sec-head .label{margin-bottom:.9rem}
+
+    /* ─── HOW IT WORKS ────────────────────────────── */
+    .how{background:var(--green)}
+    .how .sec-head h2{color:var(--white)}
+    .how .label{color:rgba(255,255,255,.5)}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px}
+    .step{background:rgba(255,255,255,.04);padding:2.25rem;position:relative;overflow:hidden;transition:background var(--T)}
+    .step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+                  background:linear-gradient(to bottom,transparent,var(--green-lt),transparent);
+                  opacity:0;transition:opacity var(--T)}
+    .step:hover::before{opacity:1}
+    .step:hover{background:rgba(255,255,255,.07)}
+    .step-n{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;
+            color:rgba(255,255,255,.15);line-height:1;margin-bottom:1.25rem}
+    .step h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;
+             color:var(--white);margin-bottom:.6rem}
+    .step p{color:rgba(255,255,255,.6);font-size:.875rem;line-height:1.7}
+
+    /* ─── TESTIMONIALS ────────────────────────────── */
+    .testimonials{background:var(--paper)}
+    .t-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem}
+    .t-card{background:var(--white);border:1px solid var(--mist);padding:2.25rem;
+            border-radius:6px;transition:all var(--T);box-shadow:0 1px 4px rgba(45,90,61,.04)}
+    .t-card:hover{border-color:var(--green-l);box-shadow:0 6px 24px rgba(45,90,61,.09)}
+    .q-mark{font-family:'Cormorant Garamond',serif;font-size:4.5rem;color:var(--burg);
+            opacity:.25;line-height:.7;margin-bottom:.9rem}
+    .t-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;
+            color:var(--dim);line-height:1.7;margin-bottom:1.4rem}
+    .t-author{display:flex;align-items:center;gap:.9rem}
+    .t-avatar{width:38px;height:38px;border-radius:50%;background:var(--green);
+              display:grid;place-items:center;font-size:.8rem;font-weight:500;color:var(--white);flex-shrink:0}
+    .t-name{font-size:.85rem;font-weight:500;color:var(--green)}
+    .t-meta{font-size:.72rem;color:var(--mid);margin-top:1px}
+    .t-badge{display:inline-block;background:var(--green-s);border:1px solid var(--green-l);
+             color:var(--green);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+             padding:.18rem .55rem;margin-top:.4rem;border-radius:2px}
+
+    /* ─── REDIRECT PREVIEW ────────────────────────── */
+    .redir-preview{max-width:560px;margin:0 auto;background:var(--white);
+                   border:1px solid var(--mist);border-radius:10px;overflow:hidden;
+                   box-shadow:0 4px 24px rgba(45,90,61,.08)}
+    .browser-bar{background:var(--off-white);padding:.7rem 1rem;
+                 display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--mist)}
+    .b-dots{display:flex;gap:5px}
+    .b-dots span{width:9px;height:9px;border-radius:50%}
+    .bd-r{background:#ff5f57}.bd-y{background:#febc2e}.bd-g{background:#28c840}
+    .b-url{flex:1;background:var(--paper);border-radius:3px;padding:.28rem .7rem;
+           font-size:.72rem;color:var(--mid);font-family:monospace;border:1px solid var(--mist)}
+    .redir-body{padding:2.5rem 2rem;text-align:center}
+    .redir-icon{width:60px;height:60px;border-radius:50%;background:var(--green-s);
+                border:1px solid var(--green-l);display:grid;place-items:center;
+                margin:0 auto 1.4rem;font-size:1.5rem}
+    .redir-body h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;
+                   font-weight:300;color:var(--green);margin-bottom:.65rem}
+    .redir-body p{color:var(--dim);font-size:.875rem;max-width:340px;margin:0 auto 1.4rem;line-height:1.7}
+    .redir-affirm{background:var(--green-s);border:1px solid var(--green-l);
+                  border-radius:4px;padding:.9rem 1.3rem;font-family:'Cormorant Garamond',serif;
+                  font-style:italic;color:var(--green);margin-bottom:1.4rem;font-size:1rem;line-height:1.65}
+    .redir-btns{display:flex;gap:.7rem;justify-content:center}
+    .rb-back{background:var(--green);color:var(--white);border:none;padding:.65rem 1.5rem;
+             font-size:.78rem;font-weight:500;letter-spacing:.06em;cursor:pointer;
+             font-family:'DM Sans',sans-serif;border-radius:2px;transition:all .2s}
+    .rb-back:hover{background:var(--green-md)}
+    .rb-close{background:transparent;color:var(--mid);border:1px solid var(--mist);
+              padding:.65rem 1.5rem;font-size:.78rem;cursor:pointer;
+              font-family:'DM Sans',sans-serif;border-radius:2px;transition:all .3s}
+    .rb-close:hover{border-color:var(--burg);color:var(--burg)}
+
+    /* ─── REDIRECT SECTION BG ─────────────────────── */
+    section.sec.redir-sec{background:var(--white)}
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer{padding:2.5rem 5vw;border-top:1px solid var(--mist);background:var(--white);
+           display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .f-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;
+            font-weight:300;letter-spacing:.12em;color:var(--green)}
+    .f-logo span{color:var(--burg)}
+    .f-tag{font-size:.72rem;color:var(--mid);letter-spacing:.1em}
+    .f-links{display:flex;gap:1.8rem;list-style:none}
+    .f-links a{font-size:.78rem;color:var(--mid);text-decoration:none;transition:color .2s}
+    .f-links a:hover{color:var(--green)}
+
+    /* ─── REVEAL ──────────────────────────────────── */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ─── RESPONSIVE ──────────────────────────────── */
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .stats-bar{gap:2.2rem}
+      .rings{display:none}
+      footer{flex-direction:column;align-items:flex-start}
+      .f-links{flex-wrap:wrap;gap:1rem}
+      #installBanner{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ═══ NAV ════════════════════════════════════════ -->
 <nav>
   <a class="nav-logo" href="#">Rhythm<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#how">How it works</a></li>
     <li><a href="#stories">Stories</a></li>
-    <li><a href="#install">Install</a></li>
+    <li><a href="#redirect">What you'll see</a></li>
   </ul>
-  <a class="nav-cta" href="#install">Get Extension</a>
+  <!-- Shown when extension NOT installed -->
+  <button id="navInstallBtn" onclick="document.getElementById('installBanner').scrollIntoView({behavior:'smooth'})">
+    Get Extension
+  </button>
+  <!-- Shown when extension IS installed -->
+  <button id="navDashBtn" onclick="document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'})">
+    ◉ Dashboard
+  </button>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="rings">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="label">Habit blocking</span>
-    </div>
-    <h1 class="display display-xl">
-      Get back<br /><em>in tune</em><br />with yourself.
-    </h1>
+    <div class="hero-eyebrow"><span class="label">Habit blocking</span></div>
+    <h1 class="serif xl">Get back<br /><em>in tune</em><br />with yourself.</h1>
     <p class="hero-sub">
-      Rhythm quietly blocks pornography and gambling sites across your browser, redirecting you back to what matters — your goals, your clarity, your life.
+      Rhythm blocks pornography and gambling sites right inside your browser, 
+      and gives you a dashboard to track your recovery — all in one place.
     </p>
     <div class="hero-actions">
-      <a class="btn-primary" href="#install">Install Free</a>
+      <!-- Dynamic: changes once extension installed -->
+      <button class="btn-primary" id="heroCTA" onclick="scrollToInstall()">
+        Install Free — Chrome Extension
+      </button>
       <a class="btn-outline" href="#stories">Read Stories</a>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
+<!-- ═══ INSTALL BANNER (hides once extension installed) ═══ -->
+<div id="installBanner">
+  <div class="banner-left">
+    <p class="label">Step 1 — Install the extension</p>
+    <h3 class="serif">Add Rhythm to Chrome</h3>
+    <p>Download the extension, load it into Chrome, and your dashboard activates automatically on this page.</p>
+    <div class="install-steps-row">
+      <div class="i-step"><span class="n">1</span> Download zip below</div>
+      <span class="i-arrow">→</span>
+      <div class="i-step"><span class="n">2</span> Open chrome://extensions</div>
+      <span class="i-arrow">→</span>
+      <div class="i-step"><span class="n">3</span> Enable Developer mode</div>
+      <span class="i-arrow">→</span>
+      <div class="i-step"><span class="n">4</span> Load unpacked → select folder</div>
+    </div>
+  </div>
+  <a class="banner-download" href="rhythm-extension.zip" download id="downloadBtn">
+    ↓ Download Rhythm Extension
+  </a>
+</div>
+
+<!-- ═══ STATS BAR ════════════════════════════════════ -->
 <div class="stats-bar">
-  <div class="stat">
-    <div class="stat-num">500<span>k+</span></div>
-    <div class="stat-label">Sites blocked</div>
+  <div class="stat"><div class="stat-num">136<span>+</span></div><div class="stat-label">Porn domains blocked</div></div>
+  <div class="stat"><div class="stat-num">37<span>+</span></div><div class="stat-label">Betting sites blocked</div></div>
+  <div class="stat"><div class="stat-num">Free<span>.</span></div><div class="stat-label">Always & forever</div></div>
+  <div class="stat"><div class="stat-num">0<span>%</span></div><div class="stat-label">Data collected</div></div>
+</div>
+
+<!-- ═══ DASHBOARD (only visible when extension installed) ═══ -->
+<div id="dashboardSection">
+  <div class="sec-head reveal">
+    <p class="label">Your dashboard</p>
+    <h2 class="serif lg">Your recovery,<br /><em>at a glance.</em></h2>
   </div>
-  <div class="stat">
-    <div class="stat-num">23<span>k</span></div>
-    <div class="stat-label">People reclaiming focus</div>
+
+  <!-- Stat cards -->
+  <div class="dash-grid">
+    <div class="dash-card reveal">
+      <div class="dash-card-label">Current streak</div>
+      <div class="dash-card-value" id="streakDays">0 <span>days</span></div>
+      <div class="dash-card-sub" id="streakSub">Keep going</div>
+      <div class="streak-bar"><div class="streak-fill" id="streakFill" style="width:0%"></div></div>
+    </div>
+    <div class="dash-card reveal">
+      <div class="dash-card-label">Blocks intercepted</div>
+      <div class="dash-card-value" id="totalBlocks">0</div>
+      <div class="dash-card-sub">Moments redirected to better choices</div>
+    </div>
+    <div class="dash-card reveal">
+      <div class="dash-card-label">Sites protected against</div>
+      <div class="dash-card-value" id="totalSites">136</div>
+      <div class="dash-card-sub">Updating with your custom list</div>
+    </div>
   </div>
-  <div class="stat">
-    <div class="stat-num">Free<span>.</span></div>
-    <div class="stat-label">Always & forever</div>
+
+  <!-- Block controls -->
+  <div class="blocker-controls reveal">
+    <div class="bc-header">
+      <div class="bc-header-left">
+        <div class="bc-dots"><span></span><span></span><span></span></div>
+        <span class="bc-title">Block Settings</span>
+      </div>
+      <span class="active-badge" id="statusBadge">Active</span>
+    </div>
+    <div class="bc-body">
+      <!-- Porn toggle -->
+      <div class="cat-row">
+        <div class="cat-info">
+          <div class="cat-icon ci-red">🔞</div>
+          <div>
+            <div class="cat-name">Pornography</div>
+            <div class="cat-count">99+ major domains blocked</div>
+          </div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="tPorn" checked />
+          <span class="ttrack"></span>
+        </label>
+      </div>
+      <!-- Gambling toggle -->
+      <div class="cat-row">
+        <div class="cat-info">
+          <div class="cat-icon ci-orange">🎰</div>
+          <div>
+            <div class="cat-name">Gambling &amp; Betting</div>
+            <div class="cat-count">37+ sites — Betika, SportPesa, Odibets &amp; more</div>
+          </div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="tGambling" checked />
+          <span class="ttrack"></span>
+        </label>
+      </div>
+      <!-- Custom domains -->
+      <div class="custom-area">
+        <span class="label">Block a specific site</span>
+        <div class="dtags" id="dTags">
+          <span class="empty-custom" id="emptyMsg">No custom sites added yet</span>
+        </div>
+        <div class="add-row">
+          <input class="dinput" id="dInput" type="text" placeholder="e.g. reddit.com" />
+          <button class="dadd" id="dAdd">+ Block</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="stat">
-    <div class="stat-num">0<span>%</span></div>
-    <div class="stat-label">Data collected</div>
+
+  <!-- Reset streak -->
+  <div style="text-align:right;margin-top:.75rem">
+    <button onclick="resetStreak()" style="background:none;border:none;color:var(--mid);
+      font-size:.72rem;cursor:pointer;letter-spacing:.06em;font-family:'DM Sans',sans-serif;
+      transition:color .2s" onmouseover="this.style.color='var(--burg)'" onmouseout="this.style.color='var(--mid)'">
+      Reset streak
+    </button>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
-<section class="how-it-works" id="how">
-  <div class="section-header reveal">
+<!-- ═══ HOW IT WORKS ════════════════════════════════ -->
+<section class="sec how" id="how">
+  <div class="sec-head reveal">
     <p class="label">How Rhythm works</p>
-    <h2 class="display display-lg">Simple. Quiet. <em>Effective.</em></h2>
+    <h2 class="serif lg">Simple. Quiet. <em>Effective.</em></h2>
   </div>
   <div class="steps">
     <div class="step reveal">
-      <div class="step-num">01</div>
-      <h3>Install the extension</h3>
-      <p>Add Rhythm to Chrome in seconds. No account required. No data leaves your device. Everything runs locally.</p>
+      <div class="step-n">01</div>
+      <h3>Install in seconds</h3>
+      <p>Add Rhythm to Chrome. No account, no email, no data leaving your device. Everything runs locally, privately.</p>
     </div>
     <div class="step reveal">
-      <div class="step-num">02</div>
-      <h3>Choose what to block</h3>
-      <p>500,000+ pornography domains and 22+ major Kenyan gambling sites are blocked by default. Add your own in seconds.</p>
+      <div class="step-n">02</div>
+      <h3>Your dashboard activates</h3>
+      <p>This page becomes your control centre. Toggle categories, add custom sites, and track your streak — live.</p>
     </div>
     <div class="step reveal">
-      <div class="step-num">03</div>
-      <h3>Get redirected, not judged</h3>
-      <p>When you visit a blocked site, Rhythm shows a calm, affirming page — not a harsh warning. A gentle pause before you choose.</p>
+      <div class="step-n">03</div>
+      <h3>Blocking runs silently</h3>
+      <p>136+ porn domains and 37+ gambling sites are blocked the moment you install. Your custom additions take effect instantly.</p>
     </div>
     <div class="step reveal">
-      <div class="step-num">04</div>
-      <h3>Your rhythm returns</h3>
-      <p>Over time, the redirects come less. Your focus sharpens. Your habits realign. You rediscover the person you want to be.</p>
+      <div class="step-n">04</div>
+      <h3>A pause, not a prison</h3>
+      <p>When a blocked site is visited, Rhythm shows a calm redirect page — an affirmation, a breath, a choice.</p>
     </div>
   </div>
 </section>
 
-<!-- BLOCKER DEMO -->
-<section class="blocker-section" id="demo">
-  <div class="blocker-grid">
-    <div class="blocker-text reveal">
-      <p class="label">Configure your blocks</p>
-      <h2 class="display display-lg">Your rules,<br /><em>your control.</em></h2>
-      <p>Rhythm blocks harmful categories by default and gives you full control to add any site you want to avoid. Everything is stored locally on your device.</p>
-      <ul class="feature-list">
-        <li>
-          <span class="check">✓</span>
-          <span>500,000+ pornography domains blocked automatically</span>
-        </li>
-        <li>
-          <span class="check">✓</span>
-          <span>22+ major Kenyan & international gambling sites included</span>
-        </li>
-        <li>
-          <span class="check">✓</span>
-          <span>Add any custom domain with one tap</span>
-        </li>
-        <li>
-          <span class="check">✓</span>
-          <span>Toggle categories on or off without losing your settings</span>
-        </li>
-        <li>
-          <span class="check">✓</span>
-          <span>Works offline — no server, no tracking, no logs</span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="blocker-panel reveal">
-      <div class="panel-header">
-        <div class="panel-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <span class="panel-title">Rhythm — Block Settings</span>
-      </div>
-      <div class="panel-body">
-        <!-- Categories -->
-        <div class="category-row">
-          <div class="category-info">
-            <div class="category-icon cat-red">🔞</div>
-            <div>
-              <div class="category-name">Pornography</div>
-              <div class="category-count">500,000+ domains</div>
-            </div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" checked />
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="category-row">
-          <div class="category-info">
-            <div class="category-icon cat-orange">🎰</div>
-            <div>
-              <div class="category-name">Gambling / Betting</div>
-              <div class="category-count">22+ sites (Betika, SportPesa…)</div>
-            </div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" checked />
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="category-row">
-          <div class="category-info">
-            <div class="category-icon cat-purple">🎮</div>
-            <div>
-              <div class="category-name">Custom sites</div>
-              <div class="category-count">Added by you</div>
-            </div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" checked />
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <!-- Custom domains -->
-        <div class="custom-input-area">
-          <label>Block a specific site</label>
-          <div class="domain-tags" id="domainTags">
-            <div class="domain-tag">example.com <button onclick="this.parentElement.remove()">×</button></div>
-          </div>
-          <div class="add-domain-row">
-            <input class="add-domain-input" id="domainInput" type="text" placeholder="e.g. example.com" />
-            <button class="add-domain-btn" onclick="addDomain()">Add</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REDIRECT PREVIEW -->
-<section class="redirect-section" id="redirect">
-  <div class="section-header reveal" style="text-align:center;">
+<!-- ═══ REDIRECT PREVIEW ═══════════════════════════ -->
+<section class="sec redir-sec" id="redirect">
+  <div class="sec-head reveal" style="text-align:center">
     <p class="label">What happens when you visit a blocked site</p>
-    <h2 class="display display-lg"><em>A pause, not a prison.</em></h2>
+    <h2 class="serif lg"><em>A pause, not a prison.</em></h2>
   </div>
-  <div class="redirect-preview reveal">
-    <div class="browser-chrome">
-      <div class="browser-dots">
-        <span class="bd-red"></span>
-        <span class="bd-yellow"></span>
-        <span class="bd-green"></span>
-      </div>
-      <div class="browser-url">🔒 rhythm.blocked</div>
+  <div class="redir-preview reveal">
+    <div class="browser-bar">
+      <div class="b-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+      <div class="b-url">🔒 rhythm — protected</div>
     </div>
-    <div class="redirect-content">
-      <div class="redirect-icon">🌿</div>
-      <h3>You were protected</h3>
+    <div class="redir-body">
+      <div class="redir-icon">🌿</div>
+      <h3>You were protected.</h3>
       <p>This site is on your block list. Rhythm quietly stepped in so you didn't have to fight yourself.</p>
-      <div class="redirect-affirmation">
-        "The version of you that set this block was thinking clearly.<br />Trust that person."
+      <div class="redir-affirm">
+        "The version of you that set this block was thinking clearly.<br/>Trust that person."
       </div>
-      <div class="redirect-actions">
-        <button class="redirect-btn-back" onclick="history.back()">← Go back</button>
-        <button class="redirect-btn-close" onclick="window.close()">Close tab</button>
+      <div class="redir-btns">
+        <button class="rb-back">← Go back</button>
+        <button class="rb-close">Close tab</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="stories">
-  <div class="section-header reveal">
+<!-- ═══ TESTIMONIALS ════════════════════════════════ -->
+<section class="sec testimonials" id="stories">
+  <div class="sec-head reveal">
     <p class="label">Real stories</p>
-    <h2 class="display display-lg">They found their<br /><em>rhythm again.</em></h2>
+    <h2 class="serif lg">They found their<br /><em>rhythm again.</em></h2>
   </div>
+  <div class="t-grid">
 
-  <div class="testimonials-grid">
-
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        I'd tried everything — app timers, accountability partners, cold showers. Nothing stuck. Rhythm is different because it doesn't shame you. It just quietly removes the option. After ninety days I stopped thinking about it entirely. I got my mornings back.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">DM</div>
-        <div>
-          <div class="author-name">Daniel M.</div>
-          <div class="author-meta">Software engineer, Nairobi</div>
-          <div class="recovery-badge">90 days clean</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">I tried everything — app timers, accountability partners, cold showers. Nothing stuck. Rhythm is different because it doesn't shame you. It just quietly removes the option. After ninety days I stopped thinking about it entirely. I got my mornings back.</p>
+      <div class="t-author">
+        <div class="t-avatar">DM</div>
+        <div><div class="t-name">Daniel M.</div><div class="t-meta">Software engineer, Nairobi</div>
+          <div class="t-badge">90 days clean</div></div>
       </div>
     </div>
 
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        Gambling took four years of my life. I lost money I didn't have — money meant for school fees. When I installed Rhythm and saw SportPesa blocked the first time I tried to visit out of habit, something broke in a good way. I realized the habit was weaker than I thought.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">JK</div>
-        <div>
-          <div class="author-name">James K.</div>
-          <div class="author-meta">Father of two, Mombasa</div>
-          <div class="recovery-badge">14 months free</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">Gambling took four years of my life. Money meant for school fees. When I installed Rhythm and saw SportPesa blocked on the first visit, something broke in a good way. I realised the habit was weaker than I thought.</p>
+      <div class="t-author">
+        <div class="t-avatar">JK</div>
+        <div><div class="t-name">James K.</div><div class="t-meta">Father of two, Mombasa</div>
+          <div class="t-badge">14 months free</div></div>
       </div>
     </div>
 
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        I'm a therapist. I recommend Rhythm to clients who are working on compulsive internet use. The redirect page is especially powerful — it doesn't punish, it creates a moment of pause. That pause is where real change happens. Environment design is underestimated in recovery.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">SA</div>
-        <div>
-          <div class="author-name">Sarah A.</div>
-          <div class="author-meta">Counselling psychologist, Kampala</div>
-          <div class="recovery-badge">Recommends to clients</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">I'm a therapist. I recommend Rhythm to clients working on compulsive internet use. The redirect page is especially powerful — it doesn't punish, it creates a moment of pause. That pause is where real change happens.</p>
+      <div class="t-author">
+        <div class="t-avatar">SA</div>
+        <div><div class="t-name">Sarah A.</div><div class="t-meta">Counselling psychologist, Kampala</div>
+          <div class="t-badge">Recommends to clients</div></div>
       </div>
     </div>
 
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        I was watching pornography every single night. I didn't even enjoy it anymore — it was just automatic. Rhythm made me conscious of the habit by interrupting it. The redirect page made me think: who set this block? Me, sober. The one who wants better for himself. I listen to that person now.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">TN</div>
-        <div>
-          <div class="author-name">Tobias N.</div>
-          <div class="author-meta">University student, Dar es Salaam</div>
-          <div class="recovery-badge">7 months free</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">I was watching pornography every night. I didn't even enjoy it anymore — it was just automatic. Rhythm made me conscious of the habit by interrupting it. The redirect page made me think: who set this block? Me, sober. The one who wants better. I listen to that person now.</p>
+      <div class="t-author">
+        <div class="t-avatar">TN</div>
+        <div><div class="t-name">Tobias N.</div><div class="t-meta">University student, Dar es Salaam</div>
+          <div class="t-badge">7 months free</div></div>
       </div>
     </div>
 
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        My marriage was suffering. My wife didn't know, but I knew. When I finally told her and started using Rhythm together with therapy, something shifted. The tool by itself isn't magic — but having that extra friction removed the easy path. And the harder path turned out to be worth it.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">RM</div>
-        <div>
-          <div class="author-name">Robert M.</div>
-          <div class="author-meta">Married, Nairobi</div>
-          <div class="recovery-badge">Rebuilding together</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">My marriage was suffering. My wife didn't know, but I knew. When I finally told her and started using Rhythm alongside therapy, something shifted. The tool alone isn't magic — but removing the easy path made the harder one worth trying.</p>
+      <div class="t-author">
+        <div class="t-avatar">RM</div>
+        <div><div class="t-name">Robert M.</div><div class="t-meta">Married, Nairobi</div>
+          <div class="t-badge">Rebuilding together</div></div>
       </div>
     </div>
 
-    <div class="testimonial-card reveal">
-      <div class="quote-mark">"</div>
-      <p class="testimonial-text">
-        I put Odibets, Betika, and SportPesa on the list and forgot about Rhythm for two weeks. When I checked my account I'd saved 12,000 shillings that I would have bet away. It's not that I wasn't tempted — I just couldn't get there fast enough for the impulse to win.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar">PO</div>
-        <div>
-          <div class="author-name">Patrick O.</div>
-          <div class="author-meta">Driver, Kisumu</div>
-          <div class="recovery-badge">Saving every week now</div>
-        </div>
+    <div class="t-card reveal">
+      <div class="q-mark">"</div>
+      <p class="t-text">I put Odibets, Betika, and SportPesa on the list and forgot about Rhythm for two weeks. When I checked my account I'd saved 12,000 shillings. It's not that I wasn't tempted — I just couldn't get there fast enough for the impulse to win.</p>
+      <div class="t-author">
+        <div class="t-avatar">PO</div>
+        <div><div class="t-name">Patrick O.</div><div class="t-meta">Driver, Kisumu</div>
+          <div class="t-badge">Saving every week now</div></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- INSTALL -->
-<section class="install-section" id="install">
-  <div class="section-header">
-    <p class="label">Ready to begin</p>
-    <h2 class="display display-lg" style="text-align:center;">Install Rhythm<br /><em>in 60 seconds.</em></h2>
-  </div>
-  <p>No account. No email. No data. Just a Chrome extension that runs quietly on your device and gives you the pause you need.</p>
-
-  <div class="install-steps">
-    <div class="install-step">
-      <span class="step-n">1</span>
-      Download the extension zip
-    </div>
-    <span class="install-arrow">→</span>
-    <div class="install-step">
-      <span class="step-n">2</span>
-      Open chrome://extensions
-    </div>
-    <span class="install-arrow">→</span>
-    <div class="install-step">
-      <span class="step-n">3</span>
-      Enable "Developer mode"
-    </div>
-    <span class="install-arrow">→</span>
-    <div class="install-step">
-      <span class="step-n">4</span>
-      "Load unpacked" → select folder
-    </div>
-  </div>
-
-  <div style="position:relative;z-index:1;">
-    <a class="btn-primary" href="../rhythm-extension.zip" download>Download Rhythm Extension</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
 <footer>
   <div>
-    <div class="footer-logo">Rhythm<span>.</span></div>
-    <div class="footer-tagline">Getting back in tune.</div>
+    <div class="f-logo">Rhythm<span>.</span></div>
+    <div class="f-tag">Getting back in tune.</div>
   </div>
-  <ul class="footer-links">
+  <ul class="f-links">
     <li><a href="#how">How it works</a></li>
     <li><a href="#stories">Stories</a></li>
-    <li><a href="#install">Install</a></li>
+    <li><a href="#redirect">Redirect page</a></li>
     <li><a href="#">Privacy</a></li>
   </ul>
 </footer>
 
+<!-- ═══ SCRIPTS ══════════════════════════════════════ -->
 <script>
-  // Domain tag add/remove
-  function addDomain() {
-    const input = document.getElementById('domainInput');
-    const val = input.value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-    if (!val) return;
-    const tags = document.getElementById('domainTags');
-    const tag = document.createElement('div');
-    tag.className = 'domain-tag';
-    tag.innerHTML = val + ' <button onclick="this.parentElement.remove()">×</button>';
-    tags.appendChild(tag);
-    input.value = '';
-    input.focus();
+/* ─── EXTENSION DETECTION ──────────────────────────
+   When this page is opened as chrome-extension://...
+   we know it's running inside the extension context.
+   We detect this and unlock the full dashboard.
+──────────────────────────────────────────────────── */
+const IS_EXTENSION = window.location.protocol === 'chrome-extension:';
+
+// ── State ────────────────────────────────────────
+let customDomains = [];
+
+// ── Boot ─────────────────────────────────────────
+if (IS_EXTENSION) {
+  unlockDashboard();
+  loadExtensionState();
+} else {
+  // Running as a normal website — show install banner + nav button
+  document.getElementById('navInstallBtn').style.display = 'block';
+  document.getElementById('navDashBtn').style.display = 'none';
+  document.getElementById('dashboardSection').style.display = 'none';
+}
+
+function unlockDashboard() {
+  // Hide install banner, show dashboard nav button
+  document.getElementById('installBanner').classList.add('hidden');
+  document.getElementById('navInstallBtn').style.display = 'none';
+  document.getElementById('navDashBtn').style.display = 'block';
+  // Show dashboard section
+  document.getElementById('dashboardSection').classList.add('active');
+  // Update hero CTA
+  const cta = document.getElementById('heroCTA');
+  cta.textContent = '◉ Open Dashboard';
+  cta.onclick = () => document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'});
+}
+
+function loadExtensionState() {
+  chrome.storage.local.get(
+    ['customDomains','pornEnabled','gamblingEnabled','streakStart','totalBlocks'],
+    (r) => {
+      customDomains = r.customDomains || [];
+      document.getElementById('tPorn').checked     = r.pornEnabled     !== false;
+      document.getElementById('tGambling').checked = r.gamblingEnabled !== false;
+      renderStreak(r.streakStart || Date.now());
+      renderBlocks(r.totalBlocks || 0);
+      renderTags();
+      updateSiteCount();
+      updateStatusBadge();
+    }
+  );
+}
+
+// ── Streak ────────────────────────────────────────
+function renderStreak(startTs) {
+  const days = Math.floor((Date.now() - startTs) / 86400000);
+  document.getElementById('streakDays').innerHTML = `${days} <span>days</span>`;
+  const milestone = days >= 90 ? 90 : days >= 30 ? 30 : days >= 14 ? 14 : days >= 7 ? 7 : 7;
+  const pct = Math.min(100, (days / milestone) * 100);
+  document.getElementById('streakFill').style.width = pct + '%';
+  const msgs = ['Start today — every day counts.','One week strong. Keep the rhythm.',
+    'Two weeks. The habit is weakening.','One month. Real change is happening.',
+    'Three months. You rewired yourself.'];
+  const idx = days < 7 ? 0 : days < 14 ? 1 : days < 30 ? 2 : days < 90 ? 3 : 4;
+  document.getElementById('streakSub').textContent = msgs[idx];
+}
+
+function resetStreak() {
+  if (!confirm('Reset your streak to day 0?')) return;
+  const now = Date.now();
+  chrome.storage.local.set({ streakStart: now });
+  renderStreak(now);
+}
+
+// ── Block count ───────────────────────────────────
+function renderBlocks(n) {
+  document.getElementById('totalBlocks').textContent = n;
+}
+
+// ── Toggles ───────────────────────────────────────
+document.getElementById('tPorn').addEventListener('change', (e) => {
+  chrome.storage.local.set({ pornEnabled: e.target.checked });
+  chrome.runtime.sendMessage({ type:'TOGGLE_CATEGORY', category:'porn', enabled:e.target.checked });
+  updateStatusBadge();
+});
+document.getElementById('tGambling').addEventListener('change', (e) => {
+  chrome.storage.local.set({ gamblingEnabled: e.target.checked });
+  chrome.runtime.sendMessage({ type:'TOGGLE_CATEGORY', category:'gambling', enabled:e.target.checked });
+  updateStatusBadge();
+});
+
+function updateStatusBadge() {
+  const pornOn    = document.getElementById('tPorn').checked;
+  const gambOn    = document.getElementById('tGambling').checked;
+  const badge     = document.getElementById('statusBadge');
+  const anyActive = pornOn || gambOn || customDomains.length > 0;
+  badge.textContent = anyActive ? 'Active' : 'Paused';
+  badge.className   = 'active-badge' + (anyActive ? '' : ' off');
+}
+
+// ── Custom domains ────────────────────────────────
+document.getElementById('dAdd').addEventListener('click', addDomain);
+document.getElementById('dInput').addEventListener('keydown', e => { if(e.key==='Enter') addDomain(); });
+
+function addDomain() {
+  const input = document.getElementById('dInput');
+  let val = input.value.trim().toLowerCase()
+    .replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*/,'');
+  if (!val || customDomains.includes(val)) { input.value=''; return; }
+  customDomains.push(val);
+  saveDomains();
+  renderTags();
+  updateSiteCount();
+  input.value='';
+  input.focus();
+}
+
+function removeDomain(d) {
+  customDomains = customDomains.filter(x => x !== d);
+  saveDomains();
+  renderTags();
+  updateSiteCount();
+}
+
+function saveDomains() {
+  chrome.storage.local.set({ customDomains });
+  chrome.runtime.sendMessage({ type:'UPDATE_CUSTOM_DOMAINS', domains:customDomains });
+}
+
+function renderTags() {
+  const c = document.getElementById('dTags');
+  if (!customDomains.length) {
+    c.innerHTML = '<span class="empty-custom" id="emptyMsg">No custom sites added yet</span>';
+    return;
   }
+  c.innerHTML = customDomains.map(d =>
+    `<div class="dtag">${esc(d)}<button onclick="removeDomain('${esc(d)}')">×</button></div>`
+  ).join('');
+  updateStatusBadge();
+}
 
-  document.getElementById('domainInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addDomain();
-  });
+function updateSiteCount() {
+  const pornOn = document.getElementById('tPorn')?.checked;
+  const gambOn = document.getElementById('tGambling')?.checked;
+  let n = customDomains.length;
+  if (pornOn)    n += 99;
+  if (gambOn)    n += 37;
+  document.getElementById('totalSites').textContent = n;
+}
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
-  reveals.forEach(el => observer.observe(el));
+// ── Non-extension scroll to install ───────────────
+function scrollToInstall() {
+  document.getElementById('installBanner').scrollIntoView({ behavior:'smooth' });
+}
+
+// ── Scroll reveal ─────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
